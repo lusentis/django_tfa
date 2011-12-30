@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+{% load url from future %}
+
+{% if user %}
+<p>You are logged in as {{ user }}. <a href="{% url "logout" %}">Logout</a></p>
+{% else %}
+<p>You are not logged in
+{% endif %}
+
+<p><a href="{% url 'login' %}">login</a></p>
+
+
+{% endblock %}
