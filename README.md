@@ -29,10 +29,10 @@ Stable:
 
 2. Sync database (optional: use south)
     
-    # no south:
+    \# no south:
     ./manage.py syncdb
 
-    # south (recomended):
+    \# south (recomended):
     ./manage.py schemamigration --initial twofactor
     ./manage.py syncdb
     ./manage.py migrate
