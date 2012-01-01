@@ -2,6 +2,10 @@
 
 Django\_tfa (twofactor) is a Django app that implements Two-Factor authentication based on Django's `contrib.auth`.
 
+One Time Tokens are generated using Tomasz's `onetimepass` (https://github.com/tadeck/onetimepass). This module is already included in this distribution (file: `otp.py`).
+Django\_tfa uses TOTPs (Time-based One Time Passwords) with base32 encoded secrets. It's fully compatible with Google Authenticator (download from http://code.google.com/p/google-authenticator/) and maybe other apps.
+
+
 ## Prerequisites ##
 - Django 1.3+
 - South (optional), install with `easy\_install south`
@@ -30,14 +34,14 @@ Stable:
 2. Sync database (optional: use south)
 
 ```bash
-    \# no south:
+    # no south:
     ./manage.py syncdb
 
-    \# south (recomended):
+    # south (recomended):
     ./manage.py schemamigration --initial twofactor
     ./manage.py syncdb
     ./manage.py migrate
-``
+```
 
 3. Add some settings (optional, defaults are shown)
 
@@ -61,7 +65,7 @@ Stable:
         name='login_twofactor_enable'),
 ```
 
-    You need to replace your existing /login/ url from `django.contrib.auth`.
+You need to replace your existing /login/ url from `django.contrib.auth`.
 
 6. Add some users from Django admin or ./manage.py shell
 
