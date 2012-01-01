@@ -28,7 +28,8 @@ Stable:
     )
 
 2. Sync database (optional: use south)
-    
+
+```bash
     \# no south:
     ./manage.py syncdb
 
@@ -36,18 +37,22 @@ Stable:
     ./manage.py schemamigration --initial twofactor
     ./manage.py syncdb
     ./manage.py migrate
+``
 
 3. Add some settings (optional, defaults are shown)
 
+```python
     from twofactor.callbacks import everyone_must_have_otp
     TWOFACTOR_ENABLED_CALLBACK = everyone_must_have_otp
     TWOFACTOR_ENABLE_AT_FIRST_LOGIN = True
     TWOFACTOR_TOKEN_LENGTH = 32
+```
 
-4. Add login and logout templates
+4. Add login and logout templates (the same you use with `contrib.auth`)
 
 5. Add twofactor urls to your root urls.py
-    
+
+
     url(r'^login/$', 'twofactor.views.login_view', {'template_name':'login.html'}, 
         name='login'),
     url(r'^login/tfa$', 'twofactor.views.login_twofactor', {'template_name':'login_twofactor.html'}, 
