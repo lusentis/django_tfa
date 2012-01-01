@@ -90,7 +90,7 @@ SECRET_KEY = '-yyz9)5=mu$ucf-y^9kj_v9lhu1t=x6-a)=c#tb3f@k7230b&&'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,10 +99,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'htmlfallbackmiddleware.middleware.HTMLFallbackMiddleware',
+    #'htmlfallbackmiddleware.middleware.HTMLFallbackMiddleware',
 )
 
-ROOT_URLCONF = 'django_tfa.urls'
+ROOT_URLCONF = 'sample.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".

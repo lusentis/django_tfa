@@ -45,7 +45,7 @@ def login_view(request, template_name='login.html'):
             if user.is_active:
                 if Secret.user_has_otp(user):
                     _session_setup(request, user)
-                    return HttpResponseRedirect(reverse('login_twofactor'))
+                    return HttpResponseRedirect(reverse('twofactor.views.login_twofactor', current_app='twofactor'))
                 else:
                     from twofactor.callbacks import everyone_must_have_otp
                     enabled_callback = getattr(settings, 'TWOFACTOR_ENABLED_CALLBACK', everyone_must_have_otp)
@@ -86,12 +86,10 @@ def login_twofactor(request, template_name='login_twofactor.html'):
                 from twofactor.otp import valid_totp, get_totp
 
                 secret = Secret.get_user_secret(user)
-                print "Secret is {0}".format(secret)
 
                 try:
                     valid_secret = valid_totp(token=request.POST.get('token'), secret=secret)
                 except TypeError, e:
-                    print('Token is not valid. TypeError.')
                     valid_secret = False
                 
                 if valid_secret and OneTimeToken.use(user=user, token=request.POST.get('token')):
@@ -102,7 +100,6 @@ def login_twofactor(request, template_name='login_twofactor.html'):
                     
                     login(request, aa)
                     request.session.save()
-                    print "User id: %s" % (request.session['_auth_user_id'])
                     return HttpResponseRedirect(reverse('home'))
 
                 else:
