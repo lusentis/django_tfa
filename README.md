@@ -8,7 +8,7 @@ Django\_tfa uses TOTPs (Time-based One Time Passwords) with base32 encoded secre
 
 ## Prerequisites ##
 - Django 1.3+
-- South (optional), install with `easy\_install south`
+- South (optional), install with `easy_install south`
 
 ## Installation ##
 
