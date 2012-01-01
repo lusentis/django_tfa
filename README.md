@@ -20,10 +20,10 @@ Stable:
 ## Setup ##
 
 1. Add `twofactor` to your `INSTALLED_APPS` list.
- 
+
     INSTALLED_APPS = (
         ...
-        'twofactor'
+        'twofactor',
         ...
     )
 
@@ -52,20 +52,21 @@ Stable:
 
 5. Add twofactor urls to your root urls.py
 
-
+```python
     url(r'^login/$', 'twofactor.views.login_view', {'template_name':'login.html'}, 
         name='login'),
     url(r'^login/tfa$', 'twofactor.views.login_twofactor', {'template_name':'login_twofactor.html'}, 
         name='login_twofactor'),
     url(r'^login/tfa/enable$', 'twofactor.views.twofactor_enable', 
         name='login_twofactor_enable'),
+```
 
     You need to replace your existing /login/ url from `django.contrib.auth`.
 
 6. Add some users from Django admin or ./manage.py shell
 
 
-## Bugs ##
+## Bugs #
 
 - Post-login redirect is not handled correctly, so you should have a urlpattern named "home" that is where you want to be reidrected after the login.
 
@@ -73,7 +74,7 @@ Stable:
 
 ## Sample ##
 Clone this repo and run:
-    
+
     ./manage.py syncdb
     ./manage.py runserver
 
