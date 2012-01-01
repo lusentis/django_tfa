@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+
+<h1>This application requires Two-Factor Authentication</h1>
+<p>Two-factor authentication has been enabled for this account</p>
+<p>Your <b>OTP Secret</b> is: <pre>{{ otp_secret }}</pre>
+
+QR Code for this Secret (<a href="http://chart.apis.google.com/chart?chs=200x200&cht=qr&chl={{ otp_secret }}">link</a>):<br />
+<img src="http://chart.apis.google.com/chart?chs=200x200&cht=qr&chl={{ otp_secret }}" width="200" height="200" alt="" />
+
+</p>
+
+<p style="color: red;">Please print or write down your OTP Secret since it can't be recovered if you lost it.<br />
+Keep it in a safe place and <b>never give it to anyone</b>.</p>
+
+<p>When done you can proceed to <a href="{% url "login" %}">login</a>.</p>
+
+{% endblock %}

@@ -5,10 +5,7 @@
 {% if user %}
 <p>You are logged in as {{ user }}. <a href="{% url "logout" %}">Logout</a></p>
 {% else %}
-<p>You are not logged in
+<p>You are not logged in. <a href="{% url 'login' %}">Login</a> now!</p>
 {% endif %}
-
-<p><a href="{% url 'login' %}">login</a></p>
-
 
 {% endblock %}

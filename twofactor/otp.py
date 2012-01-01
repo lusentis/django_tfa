@@ -80,6 +80,7 @@ def get_hotp(secret, intervals_no, as_string=False):
     except (TypeError):
         raise
         #raise TypeError('Incorrect secret')
+
     msg = struct.pack(">Q", intervals_no)
     hmac_digest = hmac.new(key, msg, hashlib.sha1).digest()
     o = ord(hmac_digest[19]) & 15

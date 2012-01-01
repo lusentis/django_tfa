@@ -1,6 +1,10 @@
+import random
+import string
+
 from django.db import models
 from django.contrib.auth.models import User
 
+import settings
 
 class Secret(models.Model):
     """ Store Secrets for each user """
@@ -30,6 +34,25 @@ class Secret(models.Model):
             return True
         else:
             return False
+    
+    @staticmethod
+    def build_secret():
+        chars = list('ABCDEFGHJKMNPQRSTUVZXW234567')
+        length = getattr(settings, 'TWOFACTOR_TOKEN_LENGTH', 32)
+        return ''.join([random.choice(chars) for i in range(length)]) 
+
+    @staticmethod
+    def user_enable_otp(user):
+        if Secret.user_has_otp(user):
+            raise ValueError('Specified user has OTP already enabled')
+        else:
+            otp_secret = Secret.build_secret()
+            s = Secret()
+            s.user = user
+            s.set_secret(otp_secret)
+            s.save()
+            return otp_secret
+
 
 class OneTimeToken(models.Model):
     """ Stores used OTTs """

@@ -126,6 +126,11 @@ INSTALLED_APPS = (
     'twofactor',
 )
 
+from twofactor.callbacks import everyone_must_have_otp
+TWOFACTOR_ENABLED_CALLBACK = everyone_must_have_otp
+TWOFACTOR_ENABLE_AT_FIRST_LOGIN = True
+TWOFACTOR_TOKEN_LENGTH = 32
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.

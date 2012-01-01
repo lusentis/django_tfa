@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+
+<h1>This application requires Two-Factor Authentication</h1>
+<p>Two-factor authentication will be enabled for this account.</p>
+<p>You are logging in as {{ user }} ({{ user.email }}).</p>
+
+<form method="post" action="{% url 'login_twofactor_enable' %}">
+{% csrf_token %}
+<p>Please click to continue: <input type="submit" value="Activate" /></p>
+</form>
+
+{% endblock %}
