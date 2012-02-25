@@ -50,7 +50,7 @@ def login_view(request, template_name='login.html'):
                     from twofactor.callbacks import everyone_must_have_otp
                     enabled_callback = getattr(settings, 'TWOFACTOR_ENABLED_CALLBACK', everyone_must_have_otp)
 
-                    if enabled_callback(user):
+                    if enabled_callback(user) and not request.POST.get('skip_enable'):
                         if settings.TWOFACTOR_ENABLE_AT_FIRST_LOGIN:
                             _session_setup(request, user)
                             return HttpResponseRedirect(reverse('login_twofactor_enable'))
