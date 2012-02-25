@@ -22,7 +22,7 @@ def twofactor_enable(request, template_name='login_twofactor_enable.html', templ
 
     if request.method == 'POST':
         if request.POST.get('skip-enable'):
-            return redirect('home')
+            return redirect('login')
 
         otp_secret = Secret.user_enable_otp(user)
         return render_to_response(template_name, {'otp_secret': otp_secret}, context_instance=RequestContext(request))
