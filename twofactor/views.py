@@ -13,7 +13,7 @@ from twofactor.models import Secret, OneTimeToken
 import settings
 
 @csrf_exempt
-def twofactor_enable(request):
+def twofactor_enable(request, template_name='login_twofactor_enable.html', template_name_confirm='login_twofactor_enable_confirm.html'):
     if not request.session.get('logging_user') or not request.session.get('logging_user_auth') or not request.session.get('logging_datetime') or datetime.datetime.now() - request.session['logging_datetime'] > datetime.timedelta(seconds=5*60):
             return HttpResponse(_('Sorry, your request is invalid or expired.'));
 
@@ -22,9 +22,9 @@ def twofactor_enable(request):
 
     if request.method == 'POST':
         otp_secret = Secret.user_enable_otp(user)
-        return render_to_response('login_twofactor_enable.html', {'otp_secret': otp_secret}, context_instance=RequestContext(request))
+        return render_to_response(template_name, {'otp_secret': otp_secret}, context_instance=RequestContext(request))
     else:
-        return render_to_response('login_twofactor_enable_confirm.html', {'user': user}, context_instance=RequestContext(request))
+        return render_to_response(template_name_confirm, {'user': user}, context_instance=RequestContext(request))
 
 def _session_setup(request, user):
     request.session['username'] = request.POST['username']
