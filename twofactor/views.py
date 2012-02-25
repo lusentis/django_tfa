@@ -66,7 +66,7 @@ def login_view(request, template_name='login.html'):
             return render_to_response(template_name, {'error':_('Invalid username or password')}, context_instance=RequestContext(request))
 
     else:
-        return render_to_response(template_name)
+        return render_to_response(template_name, context_instance=RequestContext(request))
 
 
 @csrf_exempt
@@ -110,6 +110,5 @@ def login_twofactor(request, template_name='login_twofactor.html'):
 
             else:
                 return render_to_response(template_name, {'user': user}, context_instance=RequestContext(request))
-
 
 
