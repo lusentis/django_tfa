@@ -21,6 +21,9 @@ def twofactor_enable(request, template_name='login_twofactor_enable.html', templ
     user_auth = request.session['logging_user_auth']
 
     if request.method == 'POST':
+        if request.POST.get('skip-enable'):
+            return redirect('home')
+
         otp_secret = Secret.user_enable_otp(user)
         return render_to_response(template_name, {'otp_secret': otp_secret}, context_instance=RequestContext(request))
     else:
@@ -50,7 +53,7 @@ def login_view(request, template_name='login.html'):
                     from twofactor.callbacks import everyone_must_have_otp
                     enabled_callback = getattr(settings, 'TWOFACTOR_ENABLED_CALLBACK', everyone_must_have_otp)
 
-                    if enabled_callback(user) and not request.POST.get('skip_enable'):
+                    if enabled_callback(user):
                         if settings.TWOFACTOR_ENABLE_AT_FIRST_LOGIN:
                             _session_setup(request, user)
                             return HttpResponseRedirect(reverse('login_twofactor_enable'))
